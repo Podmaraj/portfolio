@@ -1,57 +1,131 @@
-# Podmaraj Boruah — Portfolio
+# 🚀 Podmaraj Boruah — Developer Portfolio
 
-Full-stack Next.js portfolio. Built with Next.js 14, TypeScript, Tailwind CSS.
+A modern, scalable **Next.js 14 portfolio** built with **TypeScript, Tailwind CSS, and Docker**.
+Designed with clean UI, performance, and production-ready architecture.
 
-## Setup (3 commands)
+---
+
+## 🌐 Live Preview
+
+> *(Add your deployed link here)*
+
+---
+
+## 🛠️ Tech Stack
+
+* ⚡ Next.js 14 (App Router)
+* 🎯 TypeScript
+* 🎨 Tailwind CSS
+* 🐳 Docker (Containerized)
+* 🚀 Vercel (Deployment)
+
+
+
+## ✨ Features
+
+* Modern UI & animations
+* Fully responsive design 📱
+* Clean component architecture
+* Docker-ready setup
+* Security headers configured 🔒
+* Scalable folder structure
+
+---
+
+## ⚡ Quick Start
 
 ```bash
 npm install
 npm run dev
-# open http://localhost:3000
 ```
 
-## Deploy to Vercel
+👉 Open: http://localhost:3000
+
+---
+
+## 🐳 Run with Docker
+
+```bash
+docker build -t portfolio-app .
+docker run -p 3000:3000 portfolio-app
+```
+
+---
+
+## 🚀 Deployment (Vercel)
 
 ```bash
 npm install -g vercel
 vercel --prod
 ```
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-src/
-├── app/
-│   ├── layout.tsx          ← Root layout + metadata
-│   ├── page.tsx            ← Assembles all sections
-│   └── globals.css         ← All CSS (variables, animations, components)
+portfolio/
+├── public/                  # Static assets
+├── src/
+│   ├── app/
+│   │   ├── globals.css      # Global styles
+│   │   ├── layout.tsx       # Root layout
+│   │   └── page.tsx         # Main page
+│   │
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Navbar.tsx
+│   │   │   └── Footer.tsx
+│   │   │
+│   │   ├── sections/        # Page sections (Hero, About, etc.)
+│   │   └── ui/
+│   │       └── Cursor.tsx
+│   │
+│   ├── data/
+│   │   └── index.ts         # Static content
+│   │
+│   ├── hooks/
+│   │   └── index.ts         # Custom hooks
+│   │
+│   └── lib/                 # Utility functions
 │
-├── components/
-│   ├── layout/
-│   │   ├── Navbar.tsx
-│   │   └── Footer.tsx
-│   ├── sections/
-│   │   ├── Hero.tsx
-│   │   ├── About.tsx
-│   │   ├── Education.tsx
-│   │   ├── Skills.tsx
-│   │   ├── Projects.tsx
-│   │   ├── LearningRoad.tsx
-│   │   ├── Quotes.tsx
-│   │   └── Contact.tsx
-│   ├── phoenix/
-│   │   └── PhoenixSVG.tsx
-│   ├── map/
-│   │   └── AssamMap.tsx
-│   └── ui/
-│       └── Cursor.tsx
-│
-├── hooks/
-│   └── index.ts            ← All custom hooks
-│
-├── data/
-│   └── index.ts            ← All content data
-│
-└── lib/
-    └── utils.ts            ← cn() helper
+├── .dockerignore
+├── .gitignore
+├── Dockerfile               # Docker config
+├── next.config.js           # Next.js config (standalone enabled)
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── tailwind.config.ts
+├── tsconfig.json
+├── README.md
 ```
+
+---
+
+## 🔒 Security
+
+Configured HTTP headers:
+
+* X-Frame-Options
+* X-Content-Type-Options
+* Referrer Policy
+* Permissions Policy
+
+##
+
+---
+
+## 🤝 Contributing
+
+Feel free to fork and contribute!
+
+---
+
+## 📬 Contact
+
+**Podmaraj Boruah**\
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
