@@ -35,7 +35,7 @@ export default function Hero() {
           <p className="hero-eyebrow">whoami</p>
           <h1 className="hero-title">
             <span className="t-name">Podmaraj Boruah</span>
-            <span className="t-role">Full-Stack Developer · AI Enthusiast · Builder</span>
+            <span className="t-role">Full-Stack Developer · Agentic ai · Builder</span>
           </h1>
           <p className="hero-sub">
             Building full-stack systems, AI-powered applications, and learning every day from{' '}
