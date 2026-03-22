@@ -91,7 +91,7 @@ export const skillPanels: Record<string, SkillCard[]> = {
 /* ─── EDUCATION ─── */
 export const education = [
   { year: '2008 – 2020', name: 'Montfort High School', location: 'Chabua, Assam', detail: 'Foundation years — built curiosity, discipline, and early love for mathematics and logical thinking.' },
-  { year: '2020 – 2022', name: 'RD Junior College', location: 'Digboi, Assam', detail: 'Higher Secondary — Science stream laid the analytical foundation. First exposure to programming logic.' },
+  { year: '2020 – 2022', name: 'RD Junior College', location: 'Digboi, Assam', detail: 'Higher Secondary —  First exposure to programming logic.' },
   { year: '2022 – 2025', name: 'BCA Graduate', location: 'Dibrugarh, Assam', detail: 'Bachelor of Computer Applications — deep dive into software engineering, databases, and web development.' },
 ]
 
@@ -114,4 +114,27 @@ export const quotes = [
   'Good code is written by developers who <em>never stop learning.</em>',
   'Don\'t wait to be ready. Ship it, learn from it, <em>make it better.</em>',
   'From Dibrugarh. <em>Building everywhere.</em>',
-]
+
+  // NEW GENEROUS + TECH + MOTIVATION QUOTES
+
+  'Small commits today create <em>massive systems</em> tomorrow.',
+  'Your future is being written in the <em>lines of code</em> you write today.',
+  'In tech, consistency beats talent when talent <em>stops learning.</em>',
+  'Every bug you fix makes you a <em>better problem solver.</em>',
+  'Code. Break. Learn. Repeat. That’s the <em>developer lifestyle.</em>',
+  'You don’t need to know everything — just be <em>willing to figure it out.</em>',
+  'Behind every great product is a developer who <em>refused to quit.</em>',
+  'Dream big. Start small. Build fast. <em>Scale smarter.</em>',
+  'Your skills are your greatest asset — <em>invest in them daily.</em>',
+  'Tech is not just coding, it’s <em>creating impact at scale.</em>',
+  'The best developers are not born — they are <em>built through consistency.</em>',
+  'Late nights, debugging fights, and small wins — that’s how <em>legends are made.</em>',
+  'From zero to one — every project you build <em>changes your trajectory.</em>',
+  'Learn deeply. Build publicly. <em>Grow endlessly.</em>',
+  'Your code today can become someone else’s <em>solution tomorrow.</em>',
+  'Focus on progress, not perfection — <em>iteration is power.</em>',
+  'The internet rewards those who <em>create, not consume.</em>',
+  'Stay curious. Stay building. Stay <em>dangerous in tech.</em>',
+  'Every line of code is a step closer to your <em>freedom.</em>',
+  'You’re just one breakthrough away — <em>keep building.</em>',
+];
