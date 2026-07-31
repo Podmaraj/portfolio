@@ -1,176 +1,127 @@
 'use client'
-import { useState, useEffect, useRef } from 'react'
-import { skillPanels } from '@/data'
 
-type TabKey = 'current' | 'backend' | 'database' | 'aiml' | 'mobile' | 'tools' | 'trading'
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Code2, Layout, Server, Database, Cpu, Brain, CheckCircle2, Sparkles } from 'lucide-react'
+import { skillCategories, SkillGroup } from '@/data'
 
-function drawCandleChart(canvas: HTMLCanvasElement) {
-  const W = canvas.offsetWidth || 400
-  const H = 200
-  canvas.width = W; canvas.height = H
-  const ctx = canvas.getContext('2d')!
-  ctx.clearRect(0, 0, W, H)
-
-  // Grid lines
-  ctx.strokeStyle = 'rgba(0,255,65,.06)'; ctx.lineWidth = 1
-  for (let i = 0; i < 5; i++) {
-    const y = H * .08 + (H * .82 / 4) * i
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke()
-  }
-
-  // Generate candles
-  const candles: { o: number; c: number; h: number; l: number }[] = []
-  let price = 100
-  for (let i = 0; i < 28; i++) {
-    const o = price
-    const c = price + (Math.random() - .47) * 3
-    candles.push({ o, c, h: Math.max(o, c) + Math.random() * 1.5, l: Math.min(o, c) - Math.random() * 1.5 })
-    price = c
-  }
-
-  const allPrices = candles.flatMap(c => [c.h, c.l])
-  const mn = Math.min(...allPrices), mx = Math.max(...allPrices), range = mx - mn
-  const toY = (p: number) => H * .08 + ((mx - p) / range) * (H * .82)
-  const cW = (W * .88) / candles.length
-  const startX = W * .06
-
-  candles.forEach((c, i) => {
-    const x = startX + i * cW + cW * .5
-    const isUp = c.c >= c.o
-    const col = isUp ? '#00FF41' : '#FF3E3E'
-    const bW = cW * .55
-    const top = toY(Math.max(c.o, c.c))
-    const bot = toY(Math.min(c.o, c.c))
-    const ht = Math.max(bot - top, 1.5)
-
-    // Wick
-    ctx.strokeStyle = col; ctx.lineWidth = 1; ctx.globalAlpha = 0.5
-    ctx.beginPath(); ctx.moveTo(x, toY(c.h)); ctx.lineTo(x, toY(c.l)); ctx.stroke()
-    ctx.globalAlpha = 1
-
-    // Body
-    ctx.fillStyle = col; ctx.globalAlpha = 0.8
-    ctx.fillRect(x - bW / 2, top, bW, ht)
-    ctx.globalAlpha = 1
-
-    // Volume bar
-    const vh = 6 + Math.random() * 10
-    ctx.fillStyle = isUp ? 'rgba(0,255,65,.12)' : 'rgba(255,62,62,.1)'
-    ctx.fillRect(x - cW * .25, H - vh - 2, cW * .5, vh)
-  })
+const categoryIcons: Record<string, React.ReactNode> = {
+  Code2: <Code2 className="w-5 h-5 text-indigo-400" />,
+  Layout: <Layout className="w-5 h-5 text-cyan-400" />,
+  Server: <Server className="w-5 h-5 text-violet-400" />,
+  Database: <Database className="w-5 h-5 text-emerald-400" />,
+  Cpu: <Cpu className="w-5 h-5 text-amber-400" />,
+  Brain: <Brain className="w-5 h-5 text-rose-400" />,
 }
 
 export default function Skills() {
-  const [active, setActive] = useState<TabKey>('current')
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    if (active === 'trading' && canvasRef.current) {
-      setTimeout(() => { if (canvasRef.current) drawCandleChart(canvasRef.current) }, 80)
-    }
-  }, [active])
-
-  const tabs: { key: TabKey; label: string }[] = [
-    { key: 'current', label: '⚡ current' },
-    { key: 'backend', label: '🔧 backend' },
-    { key: 'database', label: '🗄️ database' },
-    { key: 'aiml', label: '🤖 ai/ml' },
-    { key: 'mobile', label: '📱 android' },
-    { key: 'tools', label: '🛠️ devops' },
-    { key: 'trading', label: '📈 trading' },
-  ]
+  const [activeTab, setActiveTab] = useState<string>('all')
 
   return (
-    <section id="skills">
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <div className="sec-label rv">Skill Set</div>
-        <h2 className="sec-title rv d1">Tech Stack &amp;<span> Tools</span></h2>
-        <p className="sec-sub rv d2">$ ls ~/skills --categorized --verbose</p>
+    <section id="skills" className="py-24 relative overflow-hidden bg-zinc-950/40 dark:bg-zinc-950/40 light:bg-slate-50/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 mb-3">
+            <Cpu className="w-3.5 h-3.5" />
+            Skills &amp; Capabilities
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-100 dark:text-zinc-100 light:text-slate-900 mb-4">
+            Technical <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">Expertise</span>
+          </h2>
+          <p className="text-zinc-400 dark:text-zinc-400 light:text-slate-600 text-base sm:text-lg">
+            Structured into 6 specialized engineering domains without clutter.
+          </p>
+        </div>
 
-        {/* Tabs */}
-        <div className="skills-tabs rv d2">
-          {tabs.map(t => (
-            <div
-              key={t.key}
-              className={`skill-tab${active === t.key ? ' active' : ''}`}
-              onClick={() => setActive(t.key)}
+        {/* Tab Selection */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+          <button
+            onClick={() => setActiveTab('all')}
+            className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+              activeTab === 'all'
+                ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/25 scale-105'
+                : 'bg-zinc-900/60 dark:bg-zinc-900/60 light:bg-slate-200/80 text-zinc-400 dark:text-zinc-400 light:text-slate-700 hover:text-white border border-zinc-800 light:border-slate-300'
+            }`}
+          >
+            All Categories
+          </button>
+          {skillCategories.map((group) => (
+            <button
+              key={group.id}
+              onClick={() => setActiveTab(group.id)}
+              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                activeTab === group.id
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/25 scale-105'
+                  : 'bg-zinc-900/60 dark:bg-zinc-900/60 light:bg-slate-200/80 text-zinc-400 dark:text-zinc-400 light:text-slate-700 hover:text-white border border-zinc-800 light:border-slate-300'
+              }`}
             >
-              {t.label}
-            </div>
+              {group.title}
+            </button>
           ))}
         </div>
 
-        {/* Skill panels */}
-        {(Object.keys(skillPanels) as TabKey[]).map(panelKey => (
-          <div key={panelKey} className={`skills-panel${active === panelKey ? ' active' : ''}`}>
-            <div className="skills-grid">
-              {skillPanels[panelKey].map((card, i) => (
-                <div key={card.name} className={`skill-card rv d${Math.min(i, 3)}`}>
-                  <div className="sk-icon">{card.icon}</div>
-                  <div className="sk-cat">{card.cat}</div>
-                  <div className="sk-name">{card.name}</div>
-                  <div className="sk-tags">
-                    {card.tags.map(tag => <span key={tag} className="sk-tag">{tag}</span>)}
+        {/* Categories Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skillCategories
+            .filter((group) => activeTab === 'all' || activeTab === group.id)
+            .map((group, idx) => (
+              <motion.div
+                key={group.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                className="glass-card rounded-2xl p-6 border-zinc-800/80 light:border-slate-200 space-y-5"
+              >
+                {/* Category Title */}
+                <div className="flex items-center gap-3 pb-3 border-b border-zinc-800/60 light:border-slate-200">
+                  <div className="p-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-900 light:bg-slate-100 border border-zinc-800 light:border-slate-200">
+                    {categoryIcons[group.icon]}
                   </div>
+                  <h3 className="text-lg font-bold text-zinc-100 dark:text-zinc-100 light:text-slate-900">
+                    {group.title}
+                  </h3>
                 </div>
-              ))}
-            </div>
-            {panelKey === 'current' && (
-              <div className="learning-row rv">
-                <div className="learning-label">// also actively learning</div>
-                <div className="learning-tags">
-                  {['System Design', 'DSA', 'NestJS', 'Microservices', 'REST API Design', 'LangChain'].map(t => (
-                    <span key={t} className="ltag">{t}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
 
-        {/* Trading panel */}
-        <div className={`skills-panel${active === 'trading' ? ' active' : ''}`}>
-          <div className="trading-panel">
-            <div className="trd-header">
-              <div className="trd-logo">📈 Trading &amp; Financial Markets</div>
-              <span style={{ fontSize: '.58rem', color: 'var(--dim)', marginLeft: 'auto' }}>
-                // personal interest · not professional advice
-              </span>
-            </div>
-            <div className="trd-body">
-              <div className="trd-visual">
-                <div style={{ fontSize: '.58rem', color: 'var(--dim)', letterSpacing: '.12em', textTransform: 'uppercase', marginBottom: '.6rem' }}>
-                  $ render --chart=candlestick
-                </div>
-                <canvas ref={canvasRef} style={{ width: '100%', height: 200, borderRadius: 4, background: 'rgba(0,0,0,.3)', display: 'block' }} />
-                <div style={{ marginTop: '.6rem', fontSize: '.55rem', color: 'var(--dim)', textAlign: 'center' }}>
-                  // learning chart patterns &amp; price action
-                </div>
-              </div>
-              <div className="trd-skills">
-                <div className="trd-skills-title">// market skills</div>
-                <div className="trd-skill-items">
-                  {[
-                    { icon: '📊', label: 'Technical Analysis', sub: 'Chart patterns, support/resistance, indicators', w: 68 },
-                    { icon: '🕯️', label: 'Candlestick Patterns', sub: 'Price action, candlestick formations', w: 60 },
-                    { icon: '📰', label: 'Fundamental Analysis', sub: 'Reading financials, earnings, macroeconomics', w: 45 },
-                    { icon: '⚖️', label: 'Risk Management', sub: 'Position sizing, stop-loss discipline', w: 55 },
-                  ].map(item => (
-                    <div key={item.label} className="trd-item">
-                      <div className="trd-item-icon">{item.icon}</div>
-                      <div style={{ flex: 1 }}>
-                        <div className="trd-item-label">{item.label}</div>
-                        <div className="trd-item-sub">{item.sub}</div>
-                        <div className="trd-bar-wrap">
-                          <div className="trd-bar" data-w={item.w} />
-                        </div>
+                {/* Skills List */}
+                <div className="space-y-4">
+                  {group.skills.map((skill) => (
+                    <div key={skill.name} className="space-y-1.5">
+                      <div className="flex items-center justify-between text-xs font-semibold">
+                        <span className="text-zinc-200 dark:text-zinc-200 light:text-slate-800">
+                          {skill.name}
+                        </span>
+                        <span className="text-indigo-400 font-mono text-[11px]">
+                          {skill.level}%
+                        </span>
+                      </div>
+                      
+                      {/* Skill Level Bar */}
+                      <div className="h-1.5 w-full bg-zinc-900 dark:bg-zinc-900 light:bg-slate-200 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-indigo-500 to-cyan-400 rounded-full transition-all duration-1000"
+                          style={{ width: `${skill.level}%` }}
+                        />
+                      </div>
+
+                      {/* Subtags */}
+                      <div className="flex flex-wrap gap-1 pt-1">
+                        {skill.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-900/60 dark:bg-zinc-900/60 light:bg-slate-100 text-zinc-400 dark:text-zinc-400 light:text-slate-600 border border-zinc-800/60 light:border-slate-200"
+                          >
+                            {t}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            ))}
         </div>
       </div>
     </section>

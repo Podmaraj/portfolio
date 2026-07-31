@@ -1,38 +1,27 @@
-import Cursor from '@/components/ui/Cursor'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import Hero from '@/components/sections/Hero'
 import About from '@/components/sections/About'
-import Education from '@/components/sections/Education'
-import Skills from '@/components/sections/Skills'
+import Experience from '@/components/sections/Experience'
 import Projects from '@/components/sections/Projects'
-import LearningRoad from '@/components/sections/LearningRoad'
-import Quotes from '@/components/sections/Quotes'
+import Skills from '@/components/sections/Skills'
+import GitHubSection from '@/components/sections/GitHubSection'
 import Contact from '@/components/sections/Contact'
 
 export default function Home() {
   return (
-    <>
-      <Cursor />
+    <div className="relative min-h-screen flex flex-col justify-between">
       <Navbar />
-      <main>
+      <main className="flex-1">
         <Hero />
-        <div className="sec-divider" />
         <About />
-        <div className="sec-divider" />
-        <Education />
-        <div className="sec-divider" />
-        <Skills />
-        <div className="sec-divider" />
+        <Experience />
         <Projects />
-        <div className="sec-divider" />
-        <LearningRoad />
-        <div className="sec-divider" />
-        <Quotes />
-        <div className="sec-divider" />
+        <Skills />
+        <GitHubSection />
         <Contact />
       </main>
       <Footer />
-    </>
+    </div>
   )
 }

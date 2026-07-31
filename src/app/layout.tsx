@@ -1,30 +1,33 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { ThemeProvider } from '@/context/ThemeContext'
 
 export const metadata: Metadata = {
   title: {
-    default: "Podmaraj Portfolio",
-    template: "%s | Podmaraj",
+    default: "Podmaraj Boruah — Software Engineer & Full-Stack Developer",
+    template: "%s | Podmaraj Boruah",
   },
   description:
-    "Podmaraj Boruah — Full-Stack Developer & AI/ML enthusiast building scalable web applications and intelligent systems from Assam.",
+    "Podmaraj Boruah — Software Engineer building enterprise microservices, AI-powered applications, and scalable healthcare platforms. Experienced in Next.js, React, Node.js, Python, and system design.",
 
   keywords: [
     "Podmaraj Boruah",
+    "Sanvya Health",
+    "Software Engineer",
     "Full Stack Developer",
     "Next.js Developer",
+    "API Gateway",
+    "Healthcare Platform",
     "AI Developer",
-    "Portfolio",
-    "Assam Developer",
-    "React Developer",
+    "Dibrugarh Assam Developer",
   ],
 
   authors: [{ name: "Podmaraj Boruah" }],
 
   openGraph: {
-    title: "Podmaraj Portfolio",
+    title: "Podmaraj Boruah — Software Engineer Portfolio",
     description:
-      "Full-stack developer building AI-powered systems and modern web applications.",
+      "Software Engineer building enterprise microservices, AI systems, and healthcare platforms.",
     type: "website",
   },
 
@@ -40,8 +43,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className="dark scroll-smooth">
+      <body className="bg-[#030712] text-zinc-100 antialiased min-h-screen selection:bg-indigo-500/30 selection:text-indigo-200">
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
