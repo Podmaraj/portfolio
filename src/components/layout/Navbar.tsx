@@ -40,8 +40,8 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-[#050508]/90 backdrop-blur-xl border-b border-white/[0.04] py-4'
-          : 'bg-transparent py-6'
+          ? 'bg-[#050508]/95 backdrop-blur-xl border-b border-white/[0.06] py-4'
+          : 'bg-[#050508]/40 backdrop-blur-sm py-6'
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
@@ -52,11 +52,11 @@ export default function Navbar() {
           className="group flex items-center gap-3"
           aria-label="Podmaraj Boruah — Home"
         >
-          <div className="w-9 h-9 rounded-xl bg-[#0e0e16] border border-white/[0.07] flex items-center justify-center font-heading font-800 text-sm text-white group-hover:border-indigo-500/40 transition-colors">
+          <div className="w-9 h-9 rounded-xl bg-[#0e0e16] border border-white/[0.12] flex items-center justify-center font-heading font-800 text-sm text-white group-hover:border-indigo-500/50 transition-colors">
             <span className="font-heading font-bold text-sm text-gradient">PB</span>
           </div>
           <div className="hidden sm:block">
-            <div className="text-sm font-heading font-semibold text-[#f1f1f3] leading-tight">
+            <div className="text-sm font-heading font-semibold text-white leading-tight">
               {personalInfo.name}
             </div>
             <div className="flex items-center gap-1.5 mt-0.5">
@@ -75,8 +75,8 @@ export default function Navbar() {
               <a
                 key={href}
                 href={href}
-                className={`relative text-sm font-body transition-colors duration-200 ${
-                  isActive ? 'text-[#f1f1f3]' : 'text-[#5a5b66] hover:text-[#9fa0a8]'
+                className={`relative text-sm font-body font-medium transition-colors duration-200 ${
+                  isActive ? 'text-white' : 'text-[#9fa0a8] hover:text-white'
                 }`}
               >
                 {label}

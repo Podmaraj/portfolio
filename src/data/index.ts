@@ -7,8 +7,8 @@ export const personalInfo = {
   bio: "Software Engineer with a passion for engineering scalable microservices, healthcare platforms, and AI-driven applications. Experienced in Next.js, Node.js, Python, and cloud-native system architectures.",
   shortBio: "Building high-performance software, enterprise microservices, and solving real-world healthcare and AI engineering problems.",
   email: "podmarajb@gmail.com",
-  github: "https://github.com/podmaraj",
-  githubUsername: "podmaraj",
+  github: "https://github.com/Podmaraj",
+  githubUsername: "Podmaraj",
   linkedin: "https://linkedin.com/in/podmaraj",
   twitter: "https://twitter.com/podmaraj",
   resumeUrl: "#",
@@ -204,26 +204,7 @@ export const projects: Project[] = [
     githubUrl: 'https://github.com/podmaraj/Spam-Detection',
     demoUrl: '#',
   },
-  {
-    id: 'diabetes-prediction',
-    name: 'Diabetes Risk Prediction Engine',
-    tagline: 'Predictive analytics model using clinical indicators for early diagnosis',
-    category: 'AI & ML',
-    isFeatured: true,
-    badge: 'Healthcare AI',
-    description: 'A machine learning system evaluating patient diagnostic parameters (glucose, BMI, age, insulin) to predict diabetes risk early and highlight key contributing features.',
-    overview: 'Leverages supervised machine learning models trained on medical metrics to assist clinicians and users in early health risk evaluation and preventive guidance.',
-    keyFeatures: [
-      'Supervised classification using XGBoost and Logistic Regression',
-      'Feature importance visualization (SHAP values & correlation)',
-      'Streamlit web interface for interactive risk assessment',
-      'Model validation with 89%+ prediction accuracy',
-      'Instant clinical summary report generation'
-    ],
-    stack: ['Python', 'Scikit-learn', 'Streamlit', 'Pandas', 'Matplotlib'],
-    githubUrl: 'https://github.com/podmaraj/Diabetes-Prediction',
-    demoUrl: '#',
-  },
+
   {
     id: 'stayz',
     name: 'Stayz – Rental Ecosystem SaaS',
@@ -403,8 +384,8 @@ export const education = [
 
 /* ─── GITHUB STATS & PINNED REPOS ─── */
 export const githubData = {
-  username: "podmaraj",
-  profileUrl: "https://github.com/podmaraj",
+  username: "Podmaraj",
+  profileUrl: "https://github.com/Podmaraj",
   totalRepositories: 24,
   totalContributions: 480,
   pinnedRepos: [

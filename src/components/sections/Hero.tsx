@@ -90,25 +90,25 @@ export default function Hero() {
           <div className="space-y-8">
 
             {/* Status badge */}
-            <motion.div {...fadeUp(0)}>
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/5 border border-emerald-500/15">
+            <motion.div {...fadeUp(0)}>  
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/8 border border-emerald-500/20 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-dot" />
-                <span className="text-xs font-mono text-emerald-400/90">Available for work</span>
-                <span className="text-[10px] font-mono text-[#5a5b66] ml-1">·</span>
+                <span className="text-xs font-mono text-emerald-400">Available for work</span>
+                <span className="text-[10px] font-mono text-[#5a5b66] mx-0.5">·</span>
                 <MapPin className="w-3 h-3 text-[#5a5b66]" />
                 <span className="text-[10px] font-mono text-[#5a5b66]">Assam, India</span>
               </div>
             </motion.div>
 
             {/* Massive name */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <motion.div {...fadeUp(0.08)}>
-                <span className="section-label">Software Engineer</span>
+                <span className="section-label text-[#9fa0a8]">Software Engineer</span>
               </motion.div>
               <motion.h1
                 {...fadeUp(0.14)}
                 className="font-heading font-extrabold leading-none tracking-tight"
-                style={{ fontSize: 'clamp(3.5rem, 9vw, 7rem)' }}
+                style={{ fontSize: 'clamp(2.8rem, 6.5vw, 5.5rem)' }}
               >
                 <span className="text-[#f1f1f3]">Podmaraj</span>
                 <br />
