@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { ThemeProvider } from '@/context/ThemeContext'
 
 export const metadata: Metadata = {
   title: {
@@ -44,10 +43,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <body className="bg-[#030712] text-zinc-100 antialiased min-h-screen selection:bg-indigo-500/30 selection:text-indigo-200">
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+      <body className="bg-[#050508] text-[#f1f1f3] antialiased min-h-screen">
+        {children}
       </body>
     </html>
   )
