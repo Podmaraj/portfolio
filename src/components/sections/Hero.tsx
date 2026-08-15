@@ -1,122 +1,202 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { FileText, Mail, ArrowRight, MapPin } from 'lucide-react'
-import { GithubIcon } from '@/components/ui/Icons'
+import { ArrowRight, MapPin } from 'lucide-react'
 import { personalInfo } from '@/data'
+
+const techStack = [
+  'Next.js', 'React', 'TypeScript', 'Node.js', 'Python',
+  'FastAPI', 'PostgreSQL', 'Prisma', 'Docker', 'Redis',
+  'LangChain', 'AWS', 'GraphQL', 'Microservices', 'Express',
+]
+
+const terminalLines = [
+  { prefix: '→', text: 'Engineered Sanvya HMS', accent: false },
+  { prefix: '✓', text: 'EdgeCore API Gateway shipped', accent: true },
+  { prefix: '→', text: 'Building AI-powered solutions', accent: false },
+  { prefix: '✓', text: 'CarbonX marketplace live', accent: true },
+]
+
+function TerminalSnippet() {
+  const [visibleLines, setVisibleLines] = useState<number>(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setVisibleLines(prev => {
+        if (prev < terminalLines.length) return prev + 1
+        clearInterval(timer)
+        return prev
+      })
+    }, 600)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <div className="w-full max-w-sm rounded-xl border border-white/[0.06] bg-[#09090e] overflow-hidden font-mono text-xs">
+      {/* Window chrome */}
+      <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/[0.05]">
+        <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+        <span className="w-2.5 h-2.5 rounded-full bg-amber-400/60" />
+        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/60" />
+        <span className="ml-3 text-[10px] text-[#5a5b66]">podmaraj ~ portfolio</span>
+      </div>
+      <div className="p-4 space-y-2 min-h-[120px]">
+        <div className="text-[#5a5b66] mb-3">$ git log --oneline --recent</div>
+        {terminalLines.slice(0, visibleLines).map((line, i) => (
+          <div key={i} className="flex items-start gap-2.5 animate-fade-in">
+            <span className={line.accent ? 'text-emerald-400' : 'text-indigo-400'}>
+              {line.prefix}
+            </span>
+            <span className={line.accent ? 'text-[#9fa0a8]' : 'text-[#5a5b66]'}>
+              {line.text}
+            </span>
+          </div>
+        ))}
+        {visibleLines < terminalLines.length && (
+          <div className="flex items-center gap-1.5">
+            <span className="text-indigo-400">→</span>
+            <span className="w-2 h-3.5 bg-indigo-400/60 animate-blink inline-block" />
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 28 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] },
+})
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden min-h-screen flex flex-col justify-center">
-      {/* Background Glow Effects */}
-      <div className="ambient-glow glow-indigo w-[500px] h-[500px] top-1/4 -left-32 opacity-70" />
-      <div className="ambient-glow glow-cyan w-[600px] h-[600px] top-1/3 -right-40 opacity-60" />
-      
-      {/* Subtle Background Grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none" />
+    <section
+      id="hero"
+      className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16"
+    >
+      {/* Single restrained spotlight */}
+      <div className="spotlight top-[-10%] left-[-15%] opacity-80" />
+      <div className="spotlight bottom-[-20%] right-[-10%] opacity-40" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        {/* Status & Location Pills */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center justify-center gap-2.5 mb-6"
-        >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 dark:text-indigo-300 light:text-indigo-700 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Software Engineer at {personalInfo.company}
+      {/* Ultra-subtle grid */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-100 pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+          {/* ── LEFT: Main content ── */}
+          <div className="space-y-8">
+
+            {/* Status badge */}
+            <motion.div {...fadeUp(0)}>
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/5 border border-emerald-500/15">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-dot" />
+                <span className="text-xs font-mono text-emerald-400/90">Available for work</span>
+                <span className="text-[10px] font-mono text-[#5a5b66] ml-1">·</span>
+                <MapPin className="w-3 h-3 text-[#5a5b66]" />
+                <span className="text-[10px] font-mono text-[#5a5b66]">Assam, India</span>
+              </div>
+            </motion.div>
+
+            {/* Massive name */}
+            <div className="space-y-2">
+              <motion.div {...fadeUp(0.08)}>
+                <span className="section-label">Software Engineer</span>
+              </motion.div>
+              <motion.h1
+                {...fadeUp(0.14)}
+                className="font-heading font-extrabold leading-none tracking-tight"
+                style={{ fontSize: 'clamp(3.5rem, 9vw, 7rem)' }}
+              >
+                <span className="text-[#f1f1f3]">Podmaraj</span>
+                <br />
+                <span className="text-gradient">Boruah.</span>
+              </motion.h1>
+            </div>
+
+            {/* Short punchy bio */}
+            <motion.p
+              {...fadeUp(0.22)}
+              className="text-base sm:text-lg text-[#5a5b66] leading-relaxed max-w-md font-body"
+            >
+              I engineer{' '}
+              <span className="text-[#9fa0a8]">scalable microservices</span>,{' '}
+              <span className="text-[#9fa0a8]">healthcare platforms</span>, and{' '}
+              <span className="text-[#9fa0a8]">AI-driven applications</span> —
+              built to last, designed to perform.
+            </motion.p>
+
+            {/* Minimal CTAs */}
+            <motion.div {...fadeUp(0.3)} className="flex items-center gap-6">
+              <a
+                href={personalInfo.resumeUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-[#f1f1f3] hover:text-indigo-400 transition-colors duration-200"
+              >
+                View Resume
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+              </a>
+              <span className="w-px h-4 bg-white/10" />
+              <a
+                href="#projects"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-[#5a5b66] hover:text-[#9fa0a8] transition-colors duration-200"
+              >
+                See My Work
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+              </a>
+              <span className="w-px h-4 bg-white/10" />
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm font-semibold text-[#5a5b66] hover:text-[#9fa0a8] transition-colors duration-200"
+              >
+                GitHub
+              </a>
+            </motion.div>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-zinc-900/60 dark:bg-zinc-900/60 light:bg-slate-200/80 border border-zinc-800 light:border-slate-300 text-zinc-400 dark:text-zinc-400 light:text-slate-700">
-            <MapPin className="w-3.5 h-3.5 text-rose-400" />
-            {personalInfo.location}
-          </div>
-        </motion.div>
-
-        {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-100 dark:text-zinc-100 light:text-slate-900 leading-[1.15] max-w-4xl mx-auto mb-6"
-        >
-          Engineering Scalable Systems &amp;{' '}
-          <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">
-            AI-Driven Applications
-          </span>
-        </motion.h1>
-
-        {/* Description */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg sm:text-xl text-zinc-400 dark:text-zinc-400 light:text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10"
-        >
-          Hi, I&apos;m <strong className="text-zinc-200 dark:text-zinc-200 light:text-slate-900 font-semibold">{personalInfo.name}</strong>. {personalInfo.bio}
-        </motion.p>
-
-        {/* CTA Buttons (Resume, GitHub, Contact) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap items-center justify-center gap-4"
-        >
-          {/* Resume Button */}
-          <a
-            href={personalInfo.resumeUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white shadow-lg shadow-indigo-600/25 hover:shadow-indigo-600/40 hover:scale-[1.02] transition-all"
+          {/* ── RIGHT: Terminal snippet ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="hidden lg:flex justify-end"
           >
-            <FileText className="w-4 h-4" />
-            Resume
-          </a>
+            <TerminalSnippet />
+          </motion.div>
+        </div>
 
-          {/* GitHub Button */}
-          <a
-            href={personalInfo.github}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm bg-zinc-900/80 dark:bg-zinc-900/80 light:bg-slate-100 hover:bg-zinc-800 dark:hover:bg-zinc-800 light:hover:bg-slate-200 border border-zinc-800 dark:border-zinc-800 light:border-slate-300 text-zinc-200 dark:text-zinc-200 light:text-slate-800 hover:scale-[1.02] transition-all"
-          >
-            <GithubIcon className="w-4 h-4" />
-            GitHub Profile
-          </a>
-
-          {/* Contact Button */}
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 dark:text-indigo-300 light:text-indigo-700 hover:scale-[1.02] transition-all"
-          >
-            <Mail className="w-4 h-4" />
-            Contact Me
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </motion.div>
-
-        {/* Tech Stack Pills */}
+        {/* ── Technology Marquee ── */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-16 pt-8 border-t border-zinc-800/60 dark:border-zinc-800/60 light:border-slate-200/80 flex flex-wrap justify-center items-center gap-3 max-w-3xl mx-auto"
+          transition={{ duration: 1, delay: 0.7 }}
+          className="mt-20 pt-8 border-t border-white/[0.04]"
         >
-          <span className="text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-500 light:text-slate-400 font-mono w-full mb-1">
-            Core Engineering Stack
-          </span>
-          {['Next.js', 'React', 'Node.js', 'TypeScript', 'Python', 'FastAPI', 'PostgreSQL', 'Prisma', 'Docker', 'Redis'].map((tech) => (
-            <span
-              key={tech}
-              className="px-3 py-1 rounded-md text-xs font-mono bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 text-zinc-400 dark:text-zinc-400 light:text-slate-700 border border-zinc-800/80 light:border-slate-300 hover:border-indigo-500/50 hover:text-indigo-300 transition-colors"
-            >
-              {tech}
-            </span>
-          ))}
+          <div className="flex items-center gap-4 mb-4">
+            <span className="section-label">Core Stack</span>
+            <div className="flex-1 h-px bg-white/[0.04]" />
+          </div>
+          <div className="overflow-hidden relative">
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#050508] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#050508] to-transparent z-10 pointer-events-none" />
+            <div className="flex animate-marquee w-max">
+              {[...techStack, ...techStack].map((tech, i) => (
+                <span
+                  key={i}
+                  className="inline-flex items-center gap-2 mx-4 text-xs font-mono text-[#5a5b66] whitespace-nowrap"
+                >
+                  <span className="w-1 h-1 rounded-full bg-indigo-500/50" />
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
