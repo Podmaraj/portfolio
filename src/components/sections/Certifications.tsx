@@ -1,83 +1,100 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Award, ShieldCheck, CheckCircle2, Calendar, Sparkles } from 'lucide-react'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { certifications } from '@/data'
+import { ShieldCheck, ChevronDown } from 'lucide-react'
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] },
+})
 
 export default function Certifications() {
+  const [openId, setOpenId] = useState<string | null>(null)
+
   return (
-    <section id="certifications" className="py-24 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 mb-3">
-            <Award className="w-3.5 h-3.5" />
-            Certifications &amp; Credentials
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-100 dark:text-zinc-100 light:text-slate-900 mb-4">
-            Verified <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">Achievements</span>
-          </h2>
-          <p className="text-zinc-400 dark:text-zinc-400 light:text-slate-600 text-base sm:text-lg">
-            Technical certifications and computer science academic credentials.
-          </p>
-        </div>
+    <section id="certifications" className="py-section relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
 
-        {/* Certifications Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {certifications.map((cert, idx) => (
-            <motion.div
-              key={cert.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="glass-card rounded-2xl p-6 flex flex-col justify-between border-zinc-800/80 light:border-slate-200 group hover:border-indigo-500/40"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
-                    <ShieldCheck className="w-5 h-5" />
+        {/* Section Label */}
+        <motion.div {...fadeUp(0)} className="mb-12">
+          <span className="section-label">05 — Certifications</span>
+        </motion.div>
+
+        {/* Accordion List */}
+        <div className="max-w-3xl space-y-px">
+          {certifications.map((cert, idx) => {
+            const isOpen = openId === cert.id
+            return (
+              <motion.div
+                key={cert.id}
+                {...fadeUp(idx * 0.07)}
+                className="border border-white/[0.05] rounded-xl overflow-hidden"
+              >
+                {/* Row Header */}
+                <button
+                  onClick={() => setOpenId(isOpen ? null : cert.id)}
+                  className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-white/[0.02] transition-colors group"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/15 flex items-center justify-center shrink-0 group-hover:border-indigo-500/30 transition-colors">
+                      <ShieldCheck className="w-4 h-4 text-indigo-400/70" />
+                    </div>
+                    <div className="space-y-0.5 text-left">
+                      <h3 className="text-sm font-heading font-semibold text-[#f1f1f3] leading-tight">
+                        {cert.title}
+                      </h3>
+                      <div className="flex items-center gap-2 text-[10px] font-mono">
+                        <span className="text-cyan-400/80">{cert.issuer}</span>
+                        <span className="text-[#5a5b66]">·</span>
+                        <span className="text-[#5a5b66]">{cert.year}</span>
+                      </div>
+                    </div>
                   </div>
-                  <span className="flex items-center gap-1 text-xs font-mono text-indigo-400 bg-zinc-900/60 dark:bg-zinc-900/60 light:bg-slate-100 px-2.5 py-1 rounded-full border border-zinc-800 light:border-slate-200">
-                    <Calendar className="w-3 h-3" />
-                    {cert.year}
-                  </span>
-                </div>
+                  <ChevronDown
+                    className={`w-4 h-4 text-[#5a5b66] shrink-0 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
 
-                <div>
-                  <h3 className="text-lg font-bold text-zinc-100 dark:text-zinc-100 light:text-slate-900 group-hover:text-indigo-300 transition-colors">
-                    {cert.title}
-                  </h3>
-                  <p className="text-xs font-mono font-semibold text-cyan-400 mt-1">
-                    {cert.issuer}
-                  </p>
-                </div>
-
-                <p className="text-xs sm:text-sm text-zinc-400 dark:text-zinc-400 light:text-slate-600 leading-relaxed">
-                  {cert.description}
-                </p>
-              </div>
-
-              {/* Verified Skills Tags */}
-              <div className="pt-4 mt-6 border-t border-zinc-800/60 dark:border-zinc-800/60 light:border-slate-200">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block mb-2">
-                  Skills Validated:
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {cert.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-2 py-0.5 rounded text-[11px] font-mono bg-indigo-500/10 text-indigo-300 border border-indigo-500/20"
+                {/* Accordion Body */}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
                     >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                      <div className="px-5 pb-5 space-y-4 border-t border-white/[0.04] pt-4">
+                        <p className="text-xs sm:text-sm text-[#5a5b66] leading-relaxed">
+                          {cert.description}
+                        </p>
+                        <div className="space-y-2">
+                          <span className="section-label">Skills Validated</span>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {cert.skills.map((skill) => (
+                              <span
+                                key={skill}
+                                className="px-2.5 py-0.5 rounded text-[10px] font-mono bg-indigo-500/5 text-indigo-400/80 border border-indigo-500/15"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
